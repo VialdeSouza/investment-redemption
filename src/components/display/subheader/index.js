@@ -7,7 +7,7 @@ const Subheader = ({ leftTitle, rightTitle }) => {
   return (
     <View style={styles.subheader}>
       <Subheading>{leftTitle.toUpperCase()}</Subheading>
-      <Subheading>{rightTitle.toUpperCase()}</Subheading>
+      <Subheading>{rightTitle}</Subheading>
     </View>
   )
 }
