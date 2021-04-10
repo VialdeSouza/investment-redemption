@@ -15,7 +15,9 @@ export const getInvestments = async () => {
   return investments
 }
 export const redeem = (investment, redemptions) => {
-  if (redemptions === undefined || redemptions === {}) {
+  const isEmpty = Object.values(redemptions).length === 0
+
+  if (redemptions === undefined || isEmpty) {
     throw new Error('Valor total do resgate deve ser maior que R$ 00,00')
   }
   investment.acoes.forEach(share => {
