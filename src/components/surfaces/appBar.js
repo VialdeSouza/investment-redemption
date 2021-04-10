@@ -1,10 +1,13 @@
 import React from 'react'
-import { Appbar } from 'react-native-paper'
+import { Appbar, useTheme } from 'react-native-paper'
+import createStyle from './styles'
 
 const AppBar = () => {
+  const theme = useTheme()
+  const styles = createStyle(theme)
   return (
-    <Appbar.Header>
-        <Appbar.Content title="Resgate" titleStyle={{ textAlign: 'center' }} />
+    <Appbar.Header style={styles.header}>
+        <Appbar.Content title="Resgate" titleStyle={styles.titleStyle} />
     </Appbar.Header>
   )
 }
