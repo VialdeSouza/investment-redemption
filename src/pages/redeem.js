@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { ScrollView } from 'react-native'
-import { Button } from 'react-native-paper'
 import ListItem from '../components/display/item'
 import Subheader from '../components/display/subheader'
+import Button from '../components/inputs/button'
 import Redemption from '../components/UI/redemption'
 import InvestmentContext from '../contexts/investment'
 import { BRLCurrency } from '../utils/format-currency'
@@ -48,8 +48,8 @@ const InvestmentRedemption = ({ route }) => {
           />
         )
       })}
-      <Button mode="contained" color='#FAE128' onPress={handleRedemption}>
-        Resgatar
+      <Button onPress={handleRedemption}>
+        Confirmar Resgate
       </Button>
     </ScrollView>
   )
