@@ -10,6 +10,9 @@ export const InvestmentProvider = ({ children }) => {
   const getDetailsInvestment = (name) => {
     return investments.find(({ nome }) => nome === name)
   }
+  const redeemInvestment = (investment, redemptions) => {
+
+  }
 
   useEffect(() => {
     (async () => {
@@ -25,6 +28,7 @@ export const InvestmentProvider = ({ children }) => {
   return (
     <InvestmentContext.Provider
       value={{
+        redeemInvestment,
         getDetailsInvestment,
         investments,
         error

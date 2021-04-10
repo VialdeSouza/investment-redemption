@@ -1,20 +1,57 @@
-import React, { useEffect, useContext } from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect, useContext, useState } from 'react'
+import { ScrollView } from 'react-native'
+import { Button } from 'react-native-paper'
+import ListItem from '../components/display/item'
+import Subheader from '../components/display/subheader'
+import Redemption from '../components/UI/redemption'
 import InvestmentContext from '../contexts/investment'
+import { BRLCurrency } from '../utils/format-currency'
 
 const InvestmentRedemption = ({ route }) => {
-  const { getDetailsInvestment } = useContext(InvestmentContext)
+  const [investment, setInvestment] = useState()
+  const [redemptions, setRedemptions] = useState()
+  const { getDetailsInvestment, redeemInvestment } = useContext(InvestmentContext)
   const { nome } = route.params
 
+  const handleRedemption = () => {
+    redeemInvestment(investment, redemptions)
+  }
+  const handleChange = (values, share) => {
+    setRedemptions(prev => ({ ...prev, [share]: values }))
+  }
+
   useEffect(() => {
-    const investment = getDetailsInvestment(nome)
-    console.log(investment)
+    const response = getDetailsInvestment(nome)
+    setInvestment(response)
   }, [nome])
 
+  if (!investment) {
+    return <></>
+  }
   return (
-    <View>
-      <Text>Resgate de Investimento</Text>
-    </View>
+    <ScrollView>
+      <Subheader leftTitle="Dados do investimento" />
+      <ListItem title="Nome" right={investment.nome} />
+      <ListItem
+        title="Saldo total disponível"
+        right={BRLCurrency(investment.saldoTotalDisponivel)}
+      />
+      <Subheader leftTitle="Resgate do seu jeito" />
+
+      {investment.acoes.map(share => {
+        return (
+          <Redemption
+            key={share.id}
+            name={share.nome}
+            total={investment.saldoTotalDisponivel * (share.percentual / 100)}
+            onChange={(values) => handleChange(values, share.id)}
+          />
+        )
+      })}
+      <Button mode="contained" color='#FAE128' onPress={handleRedemption}>
+        Resgatar
+      </Button>
+    </ScrollView>
   )
 }
 
