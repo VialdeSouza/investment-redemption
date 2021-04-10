@@ -7,11 +7,14 @@
  */
 
 import React from 'react'
+import { InvestmentProvider } from './src/contexts/investment'
 import Routes from './src/routes'
 
 const App = () => {
   return (
-    <Routes/>
+    <InvestmentProvider>
+      <Routes/>
+    </InvestmentProvider>
   )
 }
 export default App
