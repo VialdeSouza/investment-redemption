@@ -43,7 +43,7 @@ const InvestmentRedemption = ({ route }) => {
           <Redemption
             key={share.id}
             name={share.nome}
-            total={investment.saldoTotalDisponivel * (share.percentual / 100)}
+            total={share.valor}
             onChange={(values) => handleChange(values, share.id)}
           />
         )

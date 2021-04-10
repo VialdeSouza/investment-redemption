@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { getInvestments } from '../repository/investment-repository'
+import { getInvestments } from '../core/investment-core'
+
 
 const InvestmentContext = createContext({})
 
