@@ -7,6 +7,10 @@ export const InvestmentProvider = ({ children }) => {
   const [investments, setInvestments] = useState([])
   const [error, setError] = useState(false)
 
+  const getDetailsInvestment = (name) => {
+    return investments.find(({ nome }) => nome === name)
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -21,6 +25,7 @@ export const InvestmentProvider = ({ children }) => {
   return (
     <InvestmentContext.Provider
       value={{
+        getDetailsInvestment,
         investments,
         error
       }}>
