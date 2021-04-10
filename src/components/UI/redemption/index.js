@@ -8,7 +8,7 @@ import createStyle from './styles'
 const Redemption = ({ name, total, onChange }) => {
   const theme = useTheme()
   const styles = createStyle(theme)
-  const [redemption, setRedemption] = useState({ masked: '', value: '' })
+  const [redemption, setRedemption] = useState({ masked: '0.00', value: '0.00' })
 
   const isError = redemption.value > total
 
