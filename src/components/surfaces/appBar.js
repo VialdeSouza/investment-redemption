@@ -7,7 +7,7 @@ const AppBar = () => {
   const styles = createStyle(theme)
   return (
     <Appbar.Header style={styles.header}>
-        <Appbar.Content title="Resgate" titleStyle={styles.titleStyle} />
+        <Appbar.Content title="Resgate" titleStyle={styles.title} />
     </Appbar.Header>
   )
 }
