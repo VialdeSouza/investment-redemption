@@ -10,6 +10,7 @@ export const InvestmentProvider = ({ children }) => {
   const getDetailsInvestment = (name) => {
     return investments.find(({ nome }) => nome === name)
   }
+
   const redeemInvestment = (investment, redemptions) => {
     try {
       redeem(investment, redemptions)
@@ -21,6 +22,22 @@ export const InvestmentProvider = ({ children }) => {
 
   const handleFeedback = () => {
     setMessage('')
+  }
+
+  const getTotalRedemptions = (redemptions) => {
+    if (!redemptions) return '0'
+
+    const values = Object.values(redemptions)
+    const isEmpty = values.length === 0
+
+    if (isEmpty) return '0'
+    let total = 0
+
+    values.forEach(({ value }) => {
+      total = total + parseFloat(value)
+    })
+
+    return total
   }
 
   useEffect(() => {
@@ -40,6 +57,7 @@ export const InvestmentProvider = ({ children }) => {
         handleFeedback,
         redeemInvestment,
         getDetailsInvestment,
+        getTotalRedemptions,
         investments,
         message
       }}>

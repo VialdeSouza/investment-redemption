@@ -13,6 +13,7 @@ const InvestmentRedemption = ({ route }) => {
   const [redemptions, setRedemptions] = useState()
   const {
     getDetailsInvestment,
+    getTotalRedemptions,
     redeemInvestment,
     message,
     handleFeedback
@@ -31,7 +32,7 @@ const InvestmentRedemption = ({ route }) => {
     }
     setRedemptions(prev => ({ ...prev, [share]: values }))
   }
-
+  const total = getTotalRedemptions(redemptions)
   useEffect(() => {
     const response = getDetailsInvestment(nome)
     setInvestment(response)
@@ -62,6 +63,7 @@ const InvestmentRedemption = ({ route }) => {
           />
         )
       })}
+      <ListItem title="Valor total a resgatar" right={ `R$ ${BRLCurrency(total)}`} />
 
       <Button onPress={handleRedemption}>Confirmar Resgate</Button>
     </ScrollView>
