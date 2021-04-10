@@ -17,6 +17,12 @@ const InvestmentRedemption = ({ route }) => {
     redeemInvestment(investment, redemptions)
   }
   const handleChange = (values, share) => {
+    if (!values.value || values.value === '') {
+      const copied = redemptions
+      delete copied[share]
+      setRedemptions(copied)
+      return
+    }
     setRedemptions(prev => ({ ...prev, [share]: values }))
   }
 
