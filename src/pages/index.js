@@ -6,8 +6,12 @@ import Subheader from '../components/display/subheader'
 import InvestmentContext from '../contexts/investment'
 import { BRLCurrency } from '../utils/format-currency'
 
-const Investments = () => {
+const Investments = ({ navigation }) => {
   const { investments } = useContext(InvestmentContext)
+
+  const handleOnPress = (nome) => {
+    navigation.navigate('InvestmentRedemption', { nome })
+  }
 
   return (
     <View>
@@ -16,11 +20,12 @@ const Investments = () => {
         ({ nome, objetivo, indicadorCarencia, saldoTotalDisponivel }) => {
           return (
             <ListItem
+              onPress = {() => handleOnPress(nome)}
               key={nome}
               title={nome}
               description={objetivo}
               disabled={indicadorCarencia === 'S'}
-              right={props => (
+              right={() => (
                 <Subheading> {BRLCurrency(saldoTotalDisponivel)} </Subheading>
               )}
             />
