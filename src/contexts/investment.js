@@ -1,18 +1,26 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { getInvestments } from '../core/investment-core'
-
+import { getInvestments, redeem } from '../core/investment-core'
 
 const InvestmentContext = createContext({})
 
 export const InvestmentProvider = ({ children }) => {
   const [investments, setInvestments] = useState([])
-  const [error, setError] = useState(false)
+  const [message, setMessage] = useState('')
 
   const getDetailsInvestment = (name) => {
     return investments.find(({ nome }) => nome === name)
   }
   const redeemInvestment = (investment, redemptions) => {
+    try {
+      redeem(investment, redemptions)
+      setMessage('Resgate efetuado!')
+    } catch (error) {
+      setMessage(error.message)
+    }
+  }
 
+  const handleFeedback = () => {
+    setMessage('')
   }
 
   useEffect(() => {
@@ -21,7 +29,7 @@ export const InvestmentProvider = ({ children }) => {
         const response = await getInvestments()
         setInvestments(response)
       } catch (error) {
-        setError(true)
+        setMessage(error.message)
       }
     })()
   }, [])
@@ -29,10 +37,11 @@ export const InvestmentProvider = ({ children }) => {
   return (
     <InvestmentContext.Provider
       value={{
+        handleFeedback,
         redeemInvestment,
         getDetailsInvestment,
         investments,
-        error
+        message
       }}>
       {children}
     </InvestmentContext.Provider>
