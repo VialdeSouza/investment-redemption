@@ -8,13 +8,16 @@
 
 import React from 'react'
 import { InvestmentProvider } from './src/contexts/investment'
+import ThemeProvider from './src/contexts/theme'
 import Routes from './src/routes'
 
 const App = () => {
   return (
-    <InvestmentProvider>
-      <Routes/>
-    </InvestmentProvider>
+    <ThemeProvider>
+      <InvestmentProvider>
+        <Routes />
+      </InvestmentProvider>
+    </ThemeProvider>
   )
 }
 export default App
