@@ -1,17 +1,14 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Divider, List } from 'react-native-paper'
+import { Card, Divider, List } from 'react-native-paper'
 
 const ListItem = props => {
   const { disabled } = props
   return (
-    <>
+    <Card>
       <List.Item {...props} style={disabled ? { opacity: 0.5 } : {}} />
       <Divider />
-    </>
+    </Card>
   )
 }
 
 export default ListItem
-
-const styles = StyleSheet.create({})
