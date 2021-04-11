@@ -1,4 +1,5 @@
-import { getTotalRedemptions } from './investment-core'
+import { fakeInvestmentWithValue } from '../__mocks__/api'
+import { getTotalRedemptions, redeem } from './investment-core'
 
 describe('getTotalRedemptions', () => {
   test('should return total redemptions', () => {
@@ -10,5 +11,12 @@ describe('getTotalRedemptions', () => {
     const redemptions = {}
     const total = getTotalRedemptions(redemptions)
     expect(total).toBe(0)
+  })
+})
+
+describe('redeem', () => {
+  test('should throw if redemptions if empty', () => {
+    const redemptions = {}
+    expect(() => redeem(fakeInvestmentWithValue, redemptions)).toThrow('Valor total do resgate deve ser maior que R$ 00,00')
   })
 })
