@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
-import { Card, Text, useTheme } from 'react-native-paper'
-import { BRLCurrency, removeMaskCurrency } from '../../../utils/format-currency'
+import { Card, HelperText } from 'react-native-paper'
+import { BRLCurrency } from '../../../utils/format-currency'
 import ListItem from '../../display/item'
 import MaskedInput from '../../inputs/maskedInput'
-import createStyle from './styles'
+import styles from './styles'
 
 const Redemption = ({ name, total, onChange }) => {
-  const theme = useTheme()
-  const styles = createStyle(theme)
-  const [redemption, setRedemption] = useState({ masked: '', value: '' })
+  const [redemption, setRedemption] = useState('')
 
-  const isError = redemption.value > total
+  const isError = redemption > total
 
-  const handleChange = masked => {
-    const value = removeMaskCurrency(masked)
-    setRedemption({ masked, value })
-    onChange({ name, value })
+  const handleChange = value => {
+    setRedemption(value)
+    onChange(value)
   }
   return (
     <Card style={styles.card}>
@@ -23,16 +20,15 @@ const Redemption = ({ name, total, onChange }) => {
       <ListItem title="Saldo acumulado" right={BRLCurrency(total)} />
 
       <MaskedInput
-        style={styles.input}
         label="Valor a resgatar"
-        value={redemption.masked}
-        onChangeText={handleChange}
+        value={redemption}
+        onChangeValue={handleChange}
       />
-      {isError && (
-        <Text style={styles.error}>
+
+        <HelperText type='error' visible={isError}>
           Valor não poder ser maior que R${BRLCurrency(total)}
-        </Text>
-      )}
+        </HelperText>
+
     </Card>
   )
 }

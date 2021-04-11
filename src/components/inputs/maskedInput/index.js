@@ -1,26 +1,27 @@
 import React from 'react'
-import { TextInput } from 'react-native-paper'
-import { TextInputMask } from 'react-native-masked-text'
+import CurrencyInput from 'react-native-currency-input'
+import { View } from 'react-native'
+import { Divider, Text, useTheme } from 'react-native-paper'
+import createStyle from './styles'
 
 const MaskedInput = props => {
+  const theme = useTheme()
+  const styles = createStyle(theme)
   return (
-    <TextInput
-      {...props}
-      keyboardType="numeric"
-      render={props => (
-        <TextInputMask
+    <>
+    <View style= {styles.field}>
+        <Text>{props.label}</Text>
+        <CurrencyInput
           {...props}
-          type={'money'}
-          options={{
-            precision: 2,
-            separator: ',',
-            delimiter: '.',
-            unit: 'R$',
-            suffixUnit: ''
-          }}
+            style={styles.input}
+            precision = {2}
+            separator= ','
+            delimiter= '.'
+            unit= 'R$'
         />
-      )}
-    />
+    </View>
+    <Divider/>
+    </>
   )
 }
 
