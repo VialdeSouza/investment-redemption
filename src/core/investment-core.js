@@ -18,7 +18,7 @@ export const getTotalRedemptions = (redemptions) => {
   const values = Object.values(redemptions)
   let total = 0
   values.forEach((value) => {
-    if (value === null) {
+    if (!value) {
       return
     }
     total = total + parseFloat(value)
