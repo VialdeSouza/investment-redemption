@@ -123,31 +123,31 @@ export const fakeInvestmentWithValue = {
       id: '1',
       nome: 'BBAS3',
       percentual: 28.1,
-      value: 11049.28
+      valor: 11049.28
     },
     {
       id: '2',
       nome: 'VALE3',
       percentual: 20.71,
-      value: 8143.44
+      valor: 8143.44
     },
     {
       id: '3',
       nome: 'PETR4',
       percentual: 21.63,
-      value: 8505.20
+      valor: 8505.20
     },
     {
       id: '4',
       nome: 'CMIG3',
       percentual: 12.41,
-      value: 4879.77
+      valor: 4879.77
     },
     {
       id: '5',
       nome: 'OIBR3',
       percentual: 17.15,
-      value: 6743.60
+      valor: 6743.60
     }
   ]
 }
