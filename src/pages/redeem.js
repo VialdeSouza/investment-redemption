@@ -10,29 +10,24 @@ import { BRLCurrency } from '../utils/format-currency'
 
 const InvestmentRedemption = ({ route }) => {
   const [investment, setInvestment] = useState()
-  const [redemptions, setRedemptions] = useState()
+  const [redemptions, setRedemptions] = useState({})
   const {
     getDetailsInvestment,
-    getTotalRedemptions,
+    totalRedemptions,
     redeemInvestment,
-    message,
-    handleFeedback
+    handleFeedback,
+    message
   } = useContext(InvestmentContext)
   const { nome } = route.params
 
   const handleRedemption = () => {
     redeemInvestment(investment, redemptions)
   }
-  const handleChange = (values, share) => {
-    if (!values.value || values.value === '') {
-      const copied = redemptions
-      delete copied[share]
-      setRedemptions(copied)
-      return
-    }
-    setRedemptions(prev => ({ ...prev, [share]: values }))
+  const handleChange = (value, share) => {
+    setRedemptions(prev => ({ ...prev, [share]: value }))
   }
-  const total = getTotalRedemptions(redemptions)
+
+  const total = totalRedemptions(redemptions)
   useEffect(() => {
     const response = getDetailsInvestment(nome)
     setInvestment(response)
@@ -59,7 +54,7 @@ const InvestmentRedemption = ({ route }) => {
             key={share.id}
             name={share.nome}
             total={share.valor}
-            onChange={values => handleChange(values, share.id)}
+            onChange={value => handleChange(value, share.id)}
           />
         )
       })}

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { getInvestments, redeem } from '../core/investment-core'
+import { getInvestments, getTotalRedemptions, redeem } from '../core/investment-core'
 
 const InvestmentContext = createContext({})
 
@@ -24,20 +24,8 @@ export const InvestmentProvider = ({ children }) => {
     setMessage('')
   }
 
-  const getTotalRedemptions = (redemptions) => {
-    if (!redemptions) return '0'
-
-    const values = Object.values(redemptions)
-    const isEmpty = values.length === 0
-
-    if (isEmpty) return '0'
-    let total = 0
-
-    values.forEach(({ value }) => {
-      total = total + parseFloat(value)
-    })
-
-    return total
+  const totalRedemptions = (redemptions) => {
+    return getTotalRedemptions(redemptions)
   }
 
   useEffect(() => {
@@ -57,7 +45,7 @@ export const InvestmentProvider = ({ children }) => {
         handleFeedback,
         redeemInvestment,
         getDetailsInvestment,
-        getTotalRedemptions,
+        totalRedemptions,
         investments,
         message
       }}>

@@ -1,5 +1,5 @@
 export const BRLCurrency = value => {
-  if (!value) {
+  if (value === '') {
     return ''
   }
   const fixed = parseFloat(value).toFixed(2)

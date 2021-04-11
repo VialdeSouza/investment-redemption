@@ -1,5 +1,4 @@
 import { get } from '../repository/investment-repository'
-import { validator } from '../utils/validator'
 
 export const getInvestments = async () => {
   const response = await get()
@@ -14,25 +13,35 @@ export const getInvestments = async () => {
 
   return investments
 }
-export const redeem = (investment, redemptions) => {
-  const isEmpty = Object.values(redemptions).length === 0
 
-  if (redemptions === undefined || isEmpty) {
-    throw new Error('Valor total do resgate deve ser maior que R$ 00,00')
-  }
-  investment.acoes.forEach(share => {
-    if (!redemptions[share.id]) {
+export const getTotalRedemptions = (redemptions) => {
+  const values = Object.values(redemptions)
+  let total = 0
+  values.forEach((value) => {
+    if (value === null) {
       return
     }
-    const { value } = redemptions[share.id]
+    total = total + parseFloat(value)
+  })
+
+  return total
+}
+
+export const redeem = (investment, redemptions) => {
+  const totalRedemptions = getTotalRedemptions(redemptions)
+
+  if (totalRedemptions === 0) {
+    throw new Error('Valor total do resgate deve ser maior que R$ 00,00')
+  }
+
+  investment.acoes.forEach(share => {
+    if (!redemptions[share.id] || !redemptions[share.id]) {
+      return
+    }
+    const value = redemptions[share.id]
     if (value > share.valor) {
       throw new Error(
         `${share.nome}: O valor de resgate não pode ser maior que saldo acumulado`
-      )
-    }
-    if (!validator(value)) {
-      throw new Error(
-        `${share.nome}: O valor de resgate deve ser maior que R$ 00,00`
       )
     }
   })
