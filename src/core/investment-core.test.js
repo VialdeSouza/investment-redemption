@@ -1,5 +1,16 @@
-import { fakeInvestmentWithValue } from '../__mocks__/api'
-import { getTotalRedemptions, redeem } from './investment-core'
+import { get } from '../repository/investment-repository'
+import { fakeInvestments, fakeInvestmentWithValue } from '../__mocks__/api'
+import { getTotalRedemptions, redeem, getInvestments } from './investment-core'
+
+jest.mock('../repository/investment-repository')
+
+describe('getInvestments', () => {
+  test('should return investments with value share', async () => {
+    get.mockResolvedValue(fakeInvestments)
+    const response = await getInvestments()
+    expect(response[0]).toEqual(fakeInvestmentWithValue)
+  })
+})
 
 describe('getTotalRedemptions', () => {
   test('should return total redemptions', () => {
@@ -21,6 +32,7 @@ describe('redeem', () => {
       'Valor total do resgate deve ser maior que R$ 00,00'
     )
   })
+
   test('should throw if the redemption value is greater than the share value', () => {
     const redemptions = { 1: 15000, 2: 2000 }
     expect(() => redeem(fakeInvestmentWithValue, redemptions)).toThrow(

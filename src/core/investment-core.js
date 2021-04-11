@@ -6,7 +6,7 @@ export const getInvestments = async () => {
   const investments = response.map(investment => {
     const acoes = investment.acoes.map(acao => {
       const valor = investment.saldoTotalDisponivel * (acao.percentual / 100)
-      return { ...acao, valor }
+      return { ...acao, valor: valor.toFixed(2) }
     })
     return { ...investment, acoes }
   })
