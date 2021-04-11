@@ -17,12 +17,20 @@ describe('getTotalRedemptions', () => {
 describe('redeem', () => {
   test('should throw if redemptions if empty', () => {
     const redemptions = {}
-    expect(() => redeem(fakeInvestmentWithValue, redemptions))
-      .toThrow('Valor total do resgate deve ser maior que R$ 00,00')
+    expect(() => redeem(fakeInvestmentWithValue, redemptions)).toThrow(
+      'Valor total do resgate deve ser maior que R$ 00,00'
+    )
   })
   test('should throw if the redemption value is greater than the share value', () => {
     const redemptions = { 1: 15000, 2: 2000 }
-    expect(() => redeem(fakeInvestmentWithValue, redemptions))
-    .toThrow('BBAS3: O valor de resgate não pode ser maior que saldo acumulado')
+    expect(() => redeem(fakeInvestmentWithValue, redemptions)).toThrow(
+      'BBAS3: O valor de resgate não pode ser maior que saldo acumulado'
+    )
+  })
+
+  test('should return success if redemption value is valid', () => {
+    const redemptions = { 1: 11000, 2: 2000 }
+    const response = redeem(fakeInvestmentWithValue, redemptions)
+    expect(response).toBe('Resgate efetuado com sucesso!')
   })
 })

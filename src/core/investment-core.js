@@ -45,4 +45,5 @@ export const redeem = (investment, redemptions) => {
       )
     }
   })
+  return 'Resgate efetuado com sucesso!'
 }

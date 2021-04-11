@@ -13,8 +13,8 @@ export const InvestmentProvider = ({ children }) => {
 
   const redeemInvestment = (investment, redemptions) => {
     try {
-      redeem(investment, redemptions)
-      setMessage('Resgate efetuado!')
+      const response = redeem(investment, redemptions)
+      setMessage(response)
     } catch (error) {
       setMessage(error.message)
     }
